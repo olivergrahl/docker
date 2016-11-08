@@ -1,15 +1,12 @@
 #!/bin/bash
+set -e
 
-service postgresql-9.6 start
 service elasticsearch start
-service postfix start
 
-# wait until postgres is ready
-until su - postgres -c 'psql -c "select version()"' &> /dev/null
-do
-    echo "waiting for postgres to be ready..."
-    sleep 20
-done
+# Set up DB based on ENV variables
+su zammad -c '/setup_db.sh'
+
+service postfix start
 
 # scheduler
 zammad run worker start &
@@ -24,5 +21,3 @@ su - zammad -c 'export PATH=/opt/zammad/bin:$PATH && export GEM_PATH=/opt/zammad
 service nginx start
 
 /bin/bash
-
-# export PATH=/opt/zammad/bin:$PATH && export GEM_PATH=/opt/zammad/vendor/bundle/ruby/2.3.0/ && ./vendor/bundle/ruby/2.3.0/bin/puma -e production -p 3000

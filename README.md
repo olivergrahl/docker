@@ -18,3 +18,17 @@ Getting started with the Zammad Docker image
 --------------------------------------------
 
 https://zammad.org/documentation/install/install-docker
+
+Database Connection
+--------------------------------------------
+
+This branch does not include a database installation.
+
+Define the database connection by setting these ENV params:
+
+- `DB_ADAPTER=mysql2|postgresql`
+- `DB_DATABASE=<db_name>`
+- `DB_HOST=<db_host>`
+- `DB_PORT=<db_port>`
+- `DB_USERNAME=<db_username>`
+- `DB_PASSWORD=<db_password>`
